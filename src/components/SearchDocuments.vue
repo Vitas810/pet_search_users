@@ -1,19 +1,15 @@
 <template>
     <tool-bar/>
     <main class="main-page">
-        <side-bar/>
+        <side-bar />
         <main-page/>
     </main>
 </template>
 
-<script>
-import SideBar from "@/components/SideBar";
-import MainPage from "@/components/MainPage";
-import ToolBar from "@/components/TopBar";
-export default {
-    name: 'SearchDocuments',
-    components: {ToolBar, MainPage, SideBar},
-}
+<script setup>
+    import SideBar from "@/components/SideBar";
+    import MainPage from "@/components/MainPage";
+    import ToolBar from "@/components/TopBar";
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>

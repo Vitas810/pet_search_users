@@ -1,35 +1,31 @@
 <template>
     <section>
-<!--        <div class="card-empty">-->
-<!--            <span>Выберите документ, чтобы посмотреть его содержиое</span>-->
-<!--        </div>-->
-        <div class="card">
-            <div class="card-image">
-                <img src="https://picsum.photos/430/290?1" alt="">
-            </div>
-            <div class="card-block">
-                <h3 class="card-block__title">Документ 2</h3>
-                <div class="card-block__btns">
-                    <button class="primary-outline">Скачать</button>
-                    <button class="danger-outline">Удалить</button>
-                </div>
-                <h3 class="card-block__title">Описание:</h3>
-                <p class="card-block__description">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                    labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                    laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                    voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-                    non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </p>
-            </div>
+        <div class="card-empty" v-if="!store.showCard">
+            <span>Выберите документ, чтобы посмотреть его содержиое</span>
         </div>
+
+        <template v-else-if="store.showCard">
+            <div class="card" v-for="document in store.documents" :key="document.id">
+                <div class="card-image">
+                    <img :src="document.image" :alt="document.name">
+                </div>
+                <div class="card-block">
+                    <h3 class="card-block__title" v-text="document.name"></h3>
+                    <div class="card-block__btns">
+                        <button class="primary-outline">Скачать</button>
+                        <button class="danger-outline">Удалить</button>
+                    </div>
+                    <h3 class="card-block__title">Описание:</h3>
+                    <p class="card-block__description" v-text="document.description"></p>
+                </div>
+            </div>
+        </template>
     </section>
 </template>
 
-<script>
-    export default {
-        name: 'MainPage'
-    }
+<script setup>
+    import {useStore} from "@/store/documents"
+    const store = useStore()
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
@@ -64,7 +60,7 @@
             max-width: 424px;
             & img {
                 width: 100%;
-                height: auto;
+                height: 100%;
                 object-fit: cover;
             }
         }
