@@ -57,33 +57,15 @@
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-    .danger-outline {
-        color: #DC3545;
-        font-weight: 400;
-        font-size: 14px;
-        line-height: 17px;
-        padding: 7px 27px;
-        background: transparent;
-        border: 1px solid #DC3545;
-        border-radius: 8px;
-        cursor: pointer;
-    }
-    .primary-outline {
-        color: #0D6EFD;
-        font-weight: 400;
-        font-size: 14px;
-        line-height: 17px;
-        padding: 7px 27px;
-        background: transparent;
-        border: 1px solid #0D6EFD;
-        border-radius: 8px;
-        cursor: pointer;
-    }
     .card {
         display: grid;
         grid-template-columns: minmax(104px, 224px) 1fr;
         gap: 0 60px;
         padding: 30px;
+        @media(max-width: 768px) {
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
         &-image {
             max-width: 224px;
             & img {
@@ -127,6 +109,9 @@
                 font-size: 14px;
                 line-height: 17px;
                 color: #6C757D;
+                text-align: center;
+                padding: 60px 15px;
+
             }
         }
 

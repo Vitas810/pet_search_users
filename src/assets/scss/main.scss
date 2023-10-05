@@ -28,4 +28,7 @@ body {
   background: #FBFBFB;
   padding: 40px 50px 58px 50px;
   box-sizing: border-box;
+  @media(max-width: 600px) {
+    padding: 20px 15px;
+}
 }

@@ -18,6 +18,9 @@ export default {
         display: flex;
         justify-content: space-between;
         margin-bottom: 35px;
+        @media(max-width: 600px) {
+            margin-bottom: 5px;
+        }
         & h1 {
             font-weight: 700;
             font-size: 32px;

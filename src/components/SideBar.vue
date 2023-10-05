@@ -30,7 +30,7 @@
             <span>Поиск...</span>
         </div>
 
-        <div class="side-bar__items" v-else-if="store.users">
+        <div class="side-bar__items" v-else-if="store.users.length">
             <div class="side-bar__item"
                  v-for="user in store.users"
                  :key="user.id"
@@ -86,6 +86,11 @@
         max-width: 282px;
         position: relative;
         overflow-y: hidden;
+        @media(max-width: 600px) {
+            padding: 20px;
+            border-right: unset;
+            border-bottom: 1px solid #E0E0E0;
+        }
         & h3 {
             font-weight: 600;
             font-size: 16px;
@@ -114,6 +119,10 @@
             overflow-y: auto;
             height: 36vh;
             padding: 4px;
+            @media(max-width: 600px) {
+                grid-template-columns: 1fr;
+                height: 22vh;
+            }
         }
         &__item {
             display: flex;

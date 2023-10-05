@@ -25,5 +25,9 @@
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
         border-radius: 10px;
         height: 60vh;
+        @media(max-width: 600px) {
+            grid-template-columns: 1fr;
+            height: inherit;
+        }
     }
 </style>
