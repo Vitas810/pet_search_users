@@ -1,42 +1,53 @@
 <template>
     <section class="side-bar">
-        <h3>Поиск документа</h3>
+        <h3>Поиск пользователей</h3>
         <label>
-            <input type="number"
+            <input type="text"
                    class="side-bar__input"
-                   placeholder="Введите ID документа"
-                   v-model="store.idDocument"
-                   @input="store.fetchDocuments"
+                   placeholder="Введите имя пользователя"
+                   v-model="store.search"
+                   @keyup.enter="store.fetchDocuments"
+                   @blur="store.fetchDocuments"
             />
         </label>
 
         <h3>Результаты</h3>
 
+        <div>
+            <span v-if="store.users.length === 0 && !store.loading && !store.searchMessage">
+                Начните поиск для отображения результатов</span>
+            <span v-if="store.searchMessage"
+                v-text="store.searchMessage"
+                ></span>
+        </div>
+   
+
         <div v-if="store.loading">
-            <div id="loader" >
+            <div id="loader">
                 <div id="shadow"></div>
                 <div id="box"></div>
             </div>
             <span>Поиск...</span>
         </div>
 
-        <div class="side-bar__items" v-else-if="store.documents">
+        <div class="side-bar__items" v-else-if="store.users">
             <div class="side-bar__item"
-                 v-for="document in store.documents"
-                 :key="document.id"
-                 @click="store.showCard = !store.showCard"
+                 v-for="user in store.users"
+                 :key="user.id"
+                 @click="addCurrentUser(user)"
             >
                 <div class="side-bar__item-left">
-                    <img :src="document.image" :alt="document.name">
+                    <img src="/user_icon.png" :alt="user.name">
                 </div>
                 <div class="side-bar__item-right" :class="{'active': store.showCard}">
                     <span class="right-title"
-                          v-text="document.name"
+                          v-text="user.name"
                           :class="{'active-title': store.showCard}"
                     ></span>
                     <span class="right-description"
                           :class="{'active-description': store.showCard}"
-                    >12 MB</span>
+                          v-text="user.company.name"
+                    ></span>
                 </div>
             </div>
         </div>
@@ -47,9 +58,14 @@
 
 <script setup>
     import {useStore} from "@/store/documents"
+    const store = useStore();
+    import { inject } from 'vue';
+    const activeUser = inject('activeUser');
+    
+    const addCurrentUser = (user) => {
+        activeUser.value = user;
+    }
 
-    const store = useStore()
-    store.fetchDocuments()
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
@@ -69,6 +85,7 @@
         border-right: 1px solid #E0E0E0;
         max-width: 282px;
         position: relative;
+        overflow-y: hidden;
         & h3 {
             font-weight: 600;
             font-size: 16px;
@@ -92,7 +109,11 @@
         }
         &__items {
             gap: 18px 0;
-            display: grid;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            height: 36vh;
+            padding: 4px;
         }
         &__item {
             display: flex;
@@ -100,10 +121,14 @@
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
             cursor: pointer;
+            max-height: 71px;
+            width: 100%;
             &-left {
-                width: 70px;
-                height: 70px;
+                width: 60px;
+                height: 60px;
                 border-right: 1px solid #E0E0E0;
+                flex-shrink: 0;
+                padding: 5px;
                 & img {
                     max-width: 100%;
                     height: 100%;
@@ -113,7 +138,7 @@
             }
             &-right {
                 padding: 15px;
-                width: calc(100% - 70px);
+                width: calc(100% - 100px);
             }
             .right {
                 &-title {
@@ -129,6 +154,10 @@
                     font-size: 14px;
                     line-height: 17px;
                     color: #6C757D;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    display: block;
                 }
             }
         }

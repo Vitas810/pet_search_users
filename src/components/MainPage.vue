@@ -1,31 +1,59 @@
 <template>
     <section>
-        <div class="card-empty" v-if="!store.showCard">
-            <span>Выберите документ, чтобы посмотреть его содержиое</span>
+        <div class="card-empty" v-show="!showCard">
+            <span>Выберите пользователя, чтобы посмотреть его профиль</span>
         </div>
 
-        <template v-else-if="store.showCard">
-            <div class="card" v-for="document in store.documents" :key="document.id">
-                <div class="card-image">
-                    <img :src="document.image" :alt="document.name">
+        <div class="card" v-show="showCard">
+            <div class="card-image">
+                <img src="/user_icon.png" :alt="activeUser?.value?.name">
+            </div>
+            <div class="card-block">
+                <h3 class="card-block__title" v-text="activeUser?.value?.name"></h3>
+                <div class="card-block__contact">
+                    <span><b>Телефон:</b></span>
+                    <a :href="`tel:${activeUser?.value?.phone}`"
+                        v-text="activeUser?.value?.phone"
+                    ></a>
                 </div>
-                <div class="card-block">
-                    <h3 class="card-block__title" v-text="document.name"></h3>
-                    <div class="card-block__btns">
-                        <button class="primary-outline">Скачать</button>
-                        <button class="danger-outline">Удалить</button>
-                    </div>
-                    <h3 class="card-block__title">Описание:</h3>
-                    <p class="card-block__description" v-text="document.description"></p>
+                <div class="card-block__contact">
+                    <span><b>Email:</b></span>
+                    <a :href="`mailto:${activeUser?.value?.email}`"
+                        v-text="activeUser?.value?.email"
+                    ></a>
+                </div>
+                <div class="card-block__contact">
+                    <span><b>Website:</b></span>
+                    <a :href="`https://${activeUser?.value?.website}`"
+                        v-text="activeUser?.value?.website"
+                        target="_blanc"
+                    ></a>{{ store.search }}
                 </div>
             </div>
-        </template>
+        </div>
     </section>
 </template>
 
 <script setup>
-    import {useStore} from "@/store/documents"
-    const store = useStore()
+    import { inject, watch, ref } from 'vue';
+    import {useStore} from "@/store/documents";
+    import { storeToRefs } from 'pinia'
+
+    const store = useStore();
+    const { search } = storeToRefs(store)
+    const activeUser = inject('activeUser')
+    let showCard = ref(false);
+
+    watch(search, () => {
+            showCard = false
+        },
+    )
+    watch(activeUser, (user) => {
+            if (Object.keys(user).length > 0) {
+                showCard = true
+            }
+        },
+    )
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
@@ -53,11 +81,11 @@
     }
     .card {
         display: grid;
-        grid-template-columns: minmax(104px,424px) 1fr;
+        grid-template-columns: minmax(104px, 224px) 1fr;
         gap: 0 60px;
         padding: 30px;
         &-image {
-            max-width: 424px;
+            max-width: 224px;
             & img {
                 width: 100%;
                 height: 100%;
@@ -77,12 +105,15 @@
                 gap: 0 15px;
                 margin-bottom: 47px;
             }
-            &__description {
+            &__contact {
                 font-style: normal;
                 font-weight: 400;
                 font-size: 14px;
                 line-height: 17px;
                 color: #6C757D;
+                display: flex;
+                gap: 6px;
+                margin-top: 10px;
             }
         }
         &-empty {

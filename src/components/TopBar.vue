@@ -1,6 +1,6 @@
 <template>
     <header class="header">
-        <h1>MyApp</h1>
+        <h1>CRM</h1>
         <div class="header-block">
             <h4 class="header-block__name">Username</h4>
         </div>
