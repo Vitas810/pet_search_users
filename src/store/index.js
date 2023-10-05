@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import getDocumentsApi from '@/api/documents'
+import getUsersApi from '@/api/index'
 export const useStore = defineStore('documentsStore', {
     state: () => {
         return {
@@ -21,7 +21,7 @@ export const useStore = defineStore('documentsStore', {
                 const url = `https://jsonplaceholder.typicode.com/users?${nameList.join('&')}`;
 
                 this.loading = true;
-                await getDocumentsApi.getUsers(url)
+                await getUsersApi.getUsers(url)
                     .then((data) => {
                         this.users = data;
                         if (data.length === 0) {

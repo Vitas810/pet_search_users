@@ -13,7 +13,7 @@
     import { provide, ref } from 'vue';
 
     const activeUser = ref({});
-    provide('activeUser', activeUser.value)
+    provide('activeUser', activeUser.value);
 
 </script>
 

@@ -36,21 +36,21 @@
 
 <script setup>
     import { inject, watch, ref } from 'vue';
-    import {useStore} from "@/store/documents";
+    import {useStore} from "@/store";
     import { storeToRefs } from 'pinia'
 
     const store = useStore();
-    const { search } = storeToRefs(store)
-    const activeUser = inject('activeUser')
+    const { search } = storeToRefs(store);
+    const activeUser = inject('activeUser');
     let showCard = ref(false);
 
     watch(search, () => {
-            showCard = false
+            showCard = false;
         },
     )
     watch(activeUser, (user) => {
             if (Object.keys(user).length > 0) {
-                showCard = true
+                showCard = true;
             }
         },
     )
@@ -131,4 +131,4 @@
         }
 
     }
-</style>
+</style>@/store

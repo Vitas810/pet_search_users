@@ -57,7 +57,7 @@
 </template>
 
 <script setup>
-    import {useStore} from "@/store/documents"
+    import {useStore} from "@/store"
     const store = useStore();
     import { inject } from 'vue';
     const activeUser = inject('activeUser');
@@ -208,4 +208,4 @@
             transform: scale(1.2,1);
         }
     }
-</style>
+</style>@/store

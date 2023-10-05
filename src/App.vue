@@ -4,7 +4,7 @@
 
 <script>
 
-import SearchPage from "@/components/SearchDocuments";
+import SearchPage from "@/components/SearchUsers";
 export default {
   name: 'App',
   components: {
