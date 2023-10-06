@@ -6,10 +6,10 @@
     </main>
 </template>
 
-<script setup>
-    import SideBar from "@/components/SideBar";
-    import MainPage from "@/components/MainPage";
-    import ToolBar from "@/components/TopBar";
+<script setup lang="ts">
+    import SideBar from "./SideBar.vue";
+    import MainPage from "./MainPage.vue";
+    import ToolBar from "./TopBar.vue";
     import { provide, ref } from 'vue';
 
     const activeUser = ref({});

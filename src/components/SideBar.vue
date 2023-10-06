@@ -6,8 +6,8 @@
                    class="side-bar__input"
                    placeholder="Введите имя пользователя"
                    v-model="store.search"
-                   @keyup.enter="store.fetchDocuments"
-                   @blur="store.fetchDocuments"
+                   @keyup.enter="store.fetchUsers"
+                   @blur="store.fetchUsers"
             />
         </label>
 
@@ -22,7 +22,7 @@
         </div>
    
 
-        <div v-if="store.loading">
+        <div v-if="store.loading" class="posit-r">
             <div id="loader">
                 <div id="shadow"></div>
                 <div id="box"></div>
@@ -56,13 +56,15 @@
     </section>
 </template>
 
-<script setup>
-    import {useStore} from "@/store"
-    const store = useStore();
+<script setup lang="ts">
+    import {useStore} from "@/store/index.ts"
     import { inject } from 'vue';
-    const activeUser = inject('activeUser');
+    import { IUser } from './helper'
+
+    const store = useStore();
+    const activeUser = inject<IUser>('activeUser');
     
-    const addCurrentUser = (user) => {
+    const addCurrentUser = (user: IUser) => {
         activeUser.value = user;
     }
 
@@ -79,6 +81,9 @@
         &-description {
             color: #DEE2E6 !important;
         }
+    }
+    .posit-r {
+        position: relative;
     }
     .side-bar {
         padding: 20px 20px 60px;
@@ -174,8 +179,8 @@
 
     #loader {
         position: absolute;
-        top: calc(50% - 20px);
-        left: calc(50% - 20px);
+        top: -70px;
+        right: 0;
     }
     @keyframes loader {
         0% { left: -100px }

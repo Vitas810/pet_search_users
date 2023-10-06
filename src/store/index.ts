@@ -1,17 +1,19 @@
-import { defineStore } from 'pinia'
-import getUsersApi from '@/api/index'
+import { defineStore } from 'pinia';
+import getUsersApi from '@/api/index';
+import { IUser } from './helper';
+  
 export const useStore = defineStore('documentsStore', {
     state: () => {
         return {
-            users: [],
-            search: '',
-            searchMessage: null,
-            loading: false,
-            messageError: null
+            users: [] as IUser[],
+            search: '' as string,
+            searchMessage: null  as string | null,
+            loading: false as Boolean,
+            messageError: '' as string | null
         }
     },
     actions: {
-        async fetchDocuments() {
+        async fetchUsers() {
             try {
                 this.searchMessage = null;
                 if (!this.search.trim()) return;

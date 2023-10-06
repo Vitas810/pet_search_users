@@ -1,14 +1,13 @@
 <template>
-    <search-page />
+    <search-users />
 </template>
 
-<script>
-
-import SearchPage from "@/components/SearchUsers";
-export default {
-  name: 'App',
-  components: {
-      SearchPage
-  }
-}
-</script>
+<script lang="ts">
+    import SearchUsers from "./components/SearchUsers.vue";
+    export default {
+      name: 'App',
+      components: {
+        SearchUsers
+      }
+    }
+  </script>
