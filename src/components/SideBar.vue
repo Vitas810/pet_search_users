@@ -57,12 +57,12 @@
 </template>
 
 <script setup lang="ts">
-    import {useStore} from "@/store/index.ts"
+    import {useStore} from "../store/index"
     import { inject } from 'vue';
-    import { IUser } from './helper'
+    import { IUser } from '../helpers/helper'
 
     const store = useStore();
-    const activeUser = inject<IUser>('activeUser');
+    const activeUser = inject<any>('activeUser');
     
     const addCurrentUser = (user: IUser) => {
         activeUser.value = user;

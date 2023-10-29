@@ -36,22 +36,25 @@
 
 <script setup lang="ts">
     import { inject, watch, ref } from 'vue';
-    import {useStore} from "@/store/index.ts";
+    import {useStore} from "../store/index";
     import { storeToRefs } from 'pinia'
-    import { IUser } from './helper';
+    import { IUser } from '../helpers/helper';
 
     const store = useStore();
     const { search } = storeToRefs(store);
-    const activeUser = inject<IUser>('activeUser');
+    const activeUser = inject('activeUser') as IUser;
     let showCard = ref<boolean>(false);
 
     watch(search, () => {
-            showCard = false;
+            showCard.value = false;
+            if (!search.value) {
+                store.users = [];
+            }
         },
     )
     watch(activeUser, (user: IUser) => {
             if (Object.keys(user).length > 0) {
-                showCard = true;
+                showCard.value = true;
             }
         },
     )

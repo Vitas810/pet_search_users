@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
-import getUsersApi from '@/api/index';
-import { IUser } from './helper';
+import getUsersApi from '../api/index';
+import { IUser } from '../helpers/helper';
   
 export const useStore = defineStore('documentsStore', {
     state: () => {
@@ -9,7 +9,8 @@ export const useStore = defineStore('documentsStore', {
             search: '' as string,
             searchMessage: null  as string | null,
             loading: false as Boolean,
-            messageError: '' as string | null
+            showCard: false as Boolean,
+            messageError: '' as unknown
         }
     },
     actions: {
@@ -31,8 +32,8 @@ export const useStore = defineStore('documentsStore', {
                         }
                         this.loading = false;
                     })
-            } catch (error) {
-                this.messageError = error.message
+            } catch (error: unknown) {
+                this.messageError = error
                 this.loading = false;
                 console.log(error)
             }

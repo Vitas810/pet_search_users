@@ -7,12 +7,12 @@
 </template>
 
 <script setup lang="ts">
-    import SideBar from "./SideBar.vue";
-    import MainPage from "./MainPage.vue";
+    import sideBar from "./SideBar.vue";
+    import mainPage from "./MainPage.vue";
     import ToolBar from "./TopBar.vue";
     import { provide, ref } from 'vue';
 
-    const activeUser = ref({});
+    const activeUser = ref<object>({});
     provide('activeUser', activeUser.value);
 
 </script>
